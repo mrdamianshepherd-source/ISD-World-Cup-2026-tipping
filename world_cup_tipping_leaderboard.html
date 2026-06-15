@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FIFA World Cup 2026 Tipping - Official Leaderboard</title>
+<script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+<style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--cp-bg);
+  color: var(--cp-text);
+  font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at top left, var(--cp-link), transparent 28%),
+    radial-gradient(circle at top right, var(--cp-warning), transparent 26%),
+    radial-gradient(circle at bottom left, var(--cp-success), transparent 28%),
+    radial-gradient(circle at bottom right, var(--cp-accent), transparent 30%);
+  opacity: .22;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, var(--cp-overlay), var(--cp-panel));
+}
+.page { max-width: 1180px; margin: 0 auto; padding: 24px; }
+.hero, .panel, .card, .table-wrap {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-panel-strong);
+  border-radius: 16px;
+  box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border);
+}
+.hero { overflow: hidden; margin-bottom: 20px; }
+.hero-strip { height: 10px; background: linear-gradient(90deg, var(--cp-link), var(--cp-success), var(--cp-warning), var(--cp-accent), var(--cp-danger)); }
+.hero-inner { display: grid; grid-template-columns: 1.25fr .75fr; gap: 24px; padding: 28px; align-items: center; }
+.kicker { color: var(--cp-accent); font-size: 12px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+h1 { margin: 8px 0; font-size: clamp(34px, 6vw, 64px); line-height: .95; letter-spacing: -0.04em; }
+.subtitle { color: var(--cp-text-muted); font-size: 18px; line-height: 1.45; max-width: 760px; }
+.hero-callout {
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  padding: 20px;
+  background: var(--cp-accent);
+  color: var(--cp-accent-fg);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.hero-callout .ball { font-size: 56px; line-height: 1; }
+.hero-callout strong { display: block; margin-top: 8px; font-size: 18px; text-transform: uppercase; letter-spacing: .08em; }
+.hero-callout span { display: block; margin-top: 8px; font-weight: 700; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat {
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  background: var(--cp-surface);
+  padding: 14px;
+}
+.stat .value { display: block; font-size: 28px; font-weight: 900; }
+.stat .label { color: var(--cp-text-muted); font-size: 12px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+.layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start; }
+.panel { padding: 18px; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.panel h2 { margin: 0; font-size: 20px; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--cp-border);
+  border-radius: 999px;
+  background: var(--cp-accent-soft);
+  color: var(--cp-text);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 900;
+}
+.table-wrap { overflow: hidden; background: var(--cp-surface); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 13px 12px; border-bottom: 1px solid var(--cp-border); text-align: left; }
+th { color: var(--cp-text-muted); background: var(--cp-surface-soft); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+td.num, th.num { text-align: right; }
+tbody tr.leader { background: var(--cp-highlight); }
+.rank {
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--cp-surface-soft);
+  border: 1px solid var(--cp-border);
+  font-weight: 900;
+}
+.leader .rank { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
+.player { font-weight: 900; }
+.note { color: var(--cp-text-muted); font-size: 12px; margin-top: 3px; }
+.movement { font-weight: 900; color: var(--cp-success); }
+.movement.down { color: var(--cp-danger); }
+.movement.same { color: var(--cp-text-muted); }
+.cards { display: grid; gap: 12px; }
+.card { padding: 16px; background: var(--cp-surface); }
+.card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--cp-accent-soft);
+  border: 1px solid var(--cp-border);
+  font-weight: 900;
+}
+.card h3 { margin: 0; font-size: 17px; }
+.meter { height: 10px; border-radius: 999px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); overflow: hidden; margin-top: 12px; }
+.meter span { display: block; height: 100%; background: linear-gradient(90deg, var(--cp-accent), var(--cp-warning)); }
+.match-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+.match { border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); padding: 14px; }
+.match .id { color: var(--cp-accent); font-weight: 900; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.match .fixture { margin-top: 6px; font-weight: 900; }
+.status { display: inline-flex; margin-top: 10px; border-radius: 999px; border: 1px solid var(--cp-border); padding: 5px 8px; color: var(--cp-text-muted); font-size: 12px; font-weight: 900; }
+.status.scored { color: var(--cp-success); }
+.footer { text-align: center; color: var(--cp-text-muted); font-size: 13px; margin-top: 20px; }
+@media (max-width: 920px) {
+  .hero-inner, .layout { grid-template-columns: 1fr; }
+  .stats, .match-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  .page { padding: 14px; }
+  .stats, .match-grid { grid-template-columns: 1fr; }
+  th:nth-child(5), td:nth-child(5), th:nth-child(6), td:nth-child(6) { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <section class="hero">
+    <div class="hero-strip"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="kicker">Knackérrez official broadcast</div>
+        <h1>World Cup Tipping Leaderboard</h1>
+        <p class="subtitle">Official standings are live from M013 onwards. Latest through M014: Belgium 1-1 Egypt. Knackérrez has kept the pretty leaderboard intact while VAR updates the numbers.</p>
+        <span class="badge">Official leaderboard</span>
+        <span class="badge">1 point per correct tip</span>
+        <span class="badge">Brisbane time</span>
+      </div>
+      <div class="hero-callout">
+        <div class="ball">⚽</div>
+        <strong>El jefe del tipping</strong>
+        <span>M014 finished Belgium 1-1 Egypt. Tied leads after the latest lock/scoring run.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><span class="value">Tied</span><span class="label">Current leader</span></div>
+    <div class="stat"><span class="value">0</span><span class="label">Top score</span></div>
+    <div class="stat"><span class="value">12</span><span class="label">Tips locked</span></div>
+    <div class="stat"><span class="value">M014</span><span class="label">Scored through</span></div>
+  </section>
+
+  <div class="layout">
+    <main class="panel">
+      <div class="panel-head">
+        <h2>Leaderboard</h2>
+        <span class="badge">Updated: Tue 16 Jun, 8:30 AM AEST</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player</th>
+              <th class="num">Pts</th>
+              <th class="num">Correct</th>
+              <th class="num">Tips locked</th>
+              <th class="num">Movement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="leader">
+              <td><span class="rank">1</span></td>
+              <td><div class="player">Amy Cahill</div><div class="note">0 correct from 2 scored tips · 0 draw hits</div></td>
+              <td class="num"><strong>0</strong></td>
+              <td class="num">0</td>
+              <td class="num">2</td>
+              <td class="num"><span class="movement same">—</span></td>
+            </tr>
+            <tr class="leader">
+              <td><span class="rank">1</span></td>
+              <td><div class="player">Heather Theresa Cran Mantell</div><div class="note">0 correct from 2 scored tips · 0 draw hits</div></td>
+              <td class="num"><strong>0</strong></td>
+              <td class="num">0</td>
+              <td class="num">2</td>
+              <td class="num"><span class="movement same">—</span></td>
+            </tr>
+            <tr class="leader">
+              <td><span class="rank">1</span></td>
+              <td><div class="player">Julie Watson</div><div class="note">0 correct from 2 scored tips · 0 draw hits</div></td>
+              <td class="num"><strong>0</strong></td>
+              <td class="num">0</td>
+              <td class="num">2</td>
+              <td class="num"><span class="movement same">—</span></td>
+            </tr>
+            <tr class="leader">
+              <td><span class="rank">1</span></td>
+              <td><div class="player">Sam Keall</div><div class="note">0 correct from 2 scored tips · 0 draw hits</div></td>
+              <td class="num"><strong>0</strong></td>
+              <td class="num">0</td>
+              <td class="num">2</td>
+              <td class="num"><span class="movement same">—</span></td>
+            </tr>
+            <tr class="leader">
+              <td><span class="rank">1</span></td>
+              <td><div class="player">Shep</div><div class="note">0 correct from 2 scored tips · 0 draw hits</div></td>
+              <td class="num"><strong>0</strong></td>
+              <td class="num">0</td>
+              <td class="num">2</td>
+              <td class="num"><span class="movement same">—</span></td>
+            </tr>
+            <tr class="leader">
+              <td><span class="rank">1</span></td>
+              <td><div class="player">Subaru Takeshita</div><div class="note">0 correct from 2 scored tips · 0 draw hits</div></td>
+              <td class="num"><strong>0</strong></td>
+              <td class="num">0</td>
+              <td class="num">2</td>
+              <td class="num"><span class="movement same">—</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="match-grid">
+        <div class="match"><div class="id">M013</div><div class="fixture">Spain 0-0 Cabo Verde</div><span class="status scored">Scored: Draw</span></div>
+        <div class="match"><div class="id">M014</div><div class="fixture">Belgium 1-1 Egypt</div><span class="status scored">Scored: Draw</span></div>
+        <div class="match"><div class="id">M015</div><div class="fixture">Saudi Arabia v Uruguay</div><span class="status">Next result pending</span></div>
+        <div class="match"><div class="id">Rule</div><div class="fixture">Every correct tip = 1 point</div><span class="status">VAR approved</span></div>
+      </div>
+    </main>
+
+    <aside class="cards">
+      <div class="card">
+        <div class="card-top">
+          <div><h3>Amy Cahill</h3><div class="note">0 pts · 0/2 correct · 0% hit rate</div></div>
+          <div class="avatar">AC</div>
+        </div>
+        <div class="meter"><span style="width:0%"></span></div>
+      </div>
+      <div class="card">
+        <div class="card-top">
+          <div><h3>Heather Theresa Cran Mantell</h3><div class="note">0 pts · 0/2 correct · 0% hit rate</div></div>
+          <div class="avatar">HT</div>
+        </div>
+        <div class="meter"><span style="width:0%"></span></div>
+      </div>
+      <div class="card">
+        <div class="card-top">
+          <div><h3>Julie Watson</h3><div class="note">0 pts · 0/2 correct · 0% hit rate</div></div>
+          <div class="avatar">JW</div>
+        </div>
+        <div class="meter"><span style="width:0%"></span></div>
+      </div>
+      <div class="card">
+        <h3>Round 2 reminder</h3>
+        <p class="note">First Round 2 lockout is M025, Czechia v South Africa, Friday 19 Jun at 2:00 AM Brisbane. Get tips in Thursday before bedtime.</p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="footer">Official leaderboard live from M013. Scoring is rebased so late joiners start on equal footing. Last checked Tue 16 Jun, 8:30 AM AEST; no completed M015 result yet.</div>
+</div>
+</body>
+</html>
+
